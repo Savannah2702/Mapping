@@ -50,12 +50,12 @@ public class HelloMap extends Activity implements View.OnClickListener
         // retrieve latitude
         EditText latitude1 = (EditText) findViewById(R.id.latitude);
         String latitude2 = latitude1.getText().toString();
-        double newLatitude = Integer.parseInt(latitude2);
+        double newLatitude =Double.parseDouble(latitude2);
 
         // retrieve longitude
         EditText longitude1 = (EditText) findViewById(R.id.longitude);
         String longitude2 = longitude1.getText().toString();
-        double newLongitude = Integer.parseInt(longitude2);
+        double newLongitude = Double.parseDouble(longitude2);
 
         // set map to new position
         mv.getController().setCenter(new GeoPoint(newLatitude,newLongitude));

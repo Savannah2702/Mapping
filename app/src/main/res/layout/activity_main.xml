@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="latitudeText"
-        android:inputType="numberDecimal"
+        android:inputType="text"
         android:ems="10"
         android:id="@+id/latitude" />
 
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="longitudeText"
-        android:inputType="numberDecimal"
+        android:inputType="text"
         android:ems="10"
         android:id="@+id/longitude" />
 
