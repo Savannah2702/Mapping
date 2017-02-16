@@ -91,8 +91,8 @@ public class HelloMap extends Activity implements View.OnClickListener {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 Bundle extras = intent.getExtras();
-                double newLatitude = extras.getDouble("com.example.newLatitude");
-                double newLongitude = extras.getDouble("com.example.newLongitude");
+                double newLatitude = extras.getDouble("com.example.latitude");
+                double newLongitude = extras.getDouble("com.example.longitude");
                 mv.getController().setCenter(new GeoPoint(newLatitude, newLongitude));
             }
         }
