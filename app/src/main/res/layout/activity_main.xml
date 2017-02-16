@@ -13,5 +13,11 @@
         android:id="@+id/map1"
         tilesource="Mapnik"
         />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go!"
+        android:id="@+id/submitButton" />
 </LinearLayout>
 

@@ -44,9 +44,9 @@ public class HelloMap extends Activity implements View.OnClickListener {
     }
 
     @Override
-     public void onClick(View view) {
+    public void onClick(View view) {
 
-        }
+    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -64,11 +64,11 @@ public class HelloMap extends Activity implements View.OnClickListener {
         }
 
 
-        if (item.getItemId() == R.id.setlocation) {
-            Intent intent2 = new Intent(this, SetLocation.class);
-            startActivityForResult(intent2, 1);
-            return true;
-        }
+//        if (item.getItemId() == R.id.setlocation) {
+//            Intent intent2 = new Intent(this, SetLocation.class);
+//            startActivityForResult(intent2, 1);
+//            return true;
+//        }
         return false;
     }
 
@@ -87,16 +87,16 @@ public class HelloMap extends Activity implements View.OnClickListener {
 
             }
         }
-
-        if (requestCode == 1) {
-            if (resultCode == RESULT_OK) {
-                Bundle extras = intent.getExtras();
-                double newLatitude = extras.getDouble("com.example.newLatitude");
-                double newLongitude = extras.getDouble("com.example.newLongitude");
-                mv.getController().setCenter(new GeoPoint(newLatitude, newLongitude));
-            }
-        }
+//
+//        if (requestCode == 1) {
+//            if (resultCode == RESULT_OK) {
+//                Bundle extras = intent.getExtras();
+//                double newLatitude = extras.getDouble("com.example.newLatitude");
+//                double newLongitude = extras.getDouble("com.example.newLongitude");
+//                mv.getController().setCenter(new GeoPoint(newLatitude, newLongitude));
+//            }
+//        }
     }
 
-            }
+}
 
