@@ -87,15 +87,15 @@ public class HelloMap extends Activity implements View.OnClickListener {
 
             }
         }
-//
-//        if (requestCode == 1) {
-//            if (resultCode == RESULT_OK) {
-//                Bundle extras = intent.getExtras();
-//                double newLatitude = extras.getDouble("com.example.newLatitude");
-//                double newLongitude = extras.getDouble("com.example.newLongitude");
-//                mv.getController().setCenter(new GeoPoint(newLatitude, newLongitude));
-//            }
-//        }
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                Bundle extras = intent.getExtras();
+                double newLatitude = extras.getDouble("com.example.newLatitude");
+                double newLongitude = extras.getDouble("com.example.newLongitude");
+                mv.getController().setCenter(new GeoPoint(newLatitude, newLongitude));
+            }
+        }
     }
 
 }
