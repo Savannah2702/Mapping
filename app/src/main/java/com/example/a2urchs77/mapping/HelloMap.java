@@ -64,11 +64,11 @@ public class HelloMap extends Activity implements View.OnClickListener {
         }
 
 
-//        if (item.getItemId() == R.id.setlocation) {
-//            Intent intent2 = new Intent(this, SetLocation.class);
-//            startActivityForResult(intent2, 1);
-//            return true;
-//        }
+        if (item.getItemId() == R.id.setlocation) {
+            Intent intent = new Intent(this, SetLocationActivity.class);
+            startActivityForResult(intent, 1);
+            return true;
+        }
         return false;
     }
 
