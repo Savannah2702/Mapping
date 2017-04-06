@@ -2,7 +2,9 @@ package com.example.a2urchs77.mapping;
 
 import android.app.Activity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
@@ -19,13 +21,27 @@ import android.content.Intent;
 
 
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.OverlayItem;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class HelloMap extends Activity implements View.OnClickListener {
     MapView mv;
+    ItemizedIconOverlay<OverlayItem> items;
+    ItemizedIconOverlay.OnItemGestureListener<OverlayItem> markerGestureListener;
 
+    @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        Configuration.getInstance().load
+                (this, PreferenceManager.getDefaultSharedPreferences(this));
+
         setContentView(R.layout.activity_main);
 
         Button submitButton = (Button) findViewById(R.id.submitButton);
@@ -33,13 +49,38 @@ public class HelloMap extends Activity implements View.OnClickListener {
 
         // this line tells OpenStreetMap about our app.
         // If you miss this out, you might get banned from OSM servers
-        Configuration.getInstance().load
-                (this, PreferenceManager.getDefaultSharedPreferences(this));
+
 
         mv = (MapView) findViewById(R.id.map1);
         mv.setBuiltInZoomControls(true);
         mv.getController().setZoom(14);
-        mv.getController().setCenter(new GeoPoint(51.05, -0.72));
+        mv.getController().setCenter(new GeoPoint(50.73577, -1.778586));
+
+        items = new ItemizedIconOverlay<OverlayItem>(this, new ArrayList<OverlayItem>(), null);
+        OverlayItem fernhurst = new OverlayItem("Fernhurst", "Village in West Sussex", new GeoPoint(51.05, -0.72));
+        OverlayItem blackdown = new OverlayItem("Blackdown", "highest point in West Sussex", new GeoPoint(51.0581, -0.6897));
+        OverlayItem christchurch = new OverlayItem("Christchurch", "Home", new GeoPoint(50.73577, -1.778586));
+        items.addItem(fernhurst);
+        items.addItem(blackdown);
+        items.addItem(christchurch);
+        mv.getOverlays().add(items);
+
+        try {
+
+            BufferedReader reader = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getAbsolutePath()+"/poi.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] components = line.split(",");
+                if (components.length == 5) {
+                    OverlayItem currentItem = new OverlayItem (components[0], components[2], new GeoPoint(Double.parseDouble(components[4]), Double.parseDouble(components[3])));
+                    items.addItem(currentItem);
+                }
+            }
+
+        } catch (IOException e) {
+            new AlertDialog.Builder(this).setMessage("ERROR: " + e).show();
+
+        }
 
     }
 
