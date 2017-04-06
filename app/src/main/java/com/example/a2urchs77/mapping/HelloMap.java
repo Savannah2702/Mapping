@@ -18,21 +18,24 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import android.content.Intent;
+import android.widget.Toast;
 
 
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.OverlayItem;
+import org.osmdroid.views.overlay.Polyline;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class HelloMap extends Activity implements View.OnClickListener {
+public class HelloMap extends Activity implements View.OnClickListener{
     MapView mv;
     ItemizedIconOverlay<OverlayItem> items;
     ItemizedIconOverlay.OnItemGestureListener<OverlayItem> markerGestureListener;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +59,24 @@ public class HelloMap extends Activity implements View.OnClickListener {
         mv.getController().setZoom(14);
         mv.getController().setCenter(new GeoPoint(50.73577, -1.778586));
 
-        items = new ItemizedIconOverlay<OverlayItem>(this, new ArrayList<OverlayItem>(), null);
+        markerGestureListener = new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>()
+
+        {
+
+            public boolean onItemLongPress ( int i, OverlayItem item){
+                Toast.makeText(HelloMap.this, item.getSnippet(), Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+
+            public boolean onItemSingleTapUp(int i, OverlayItem item) {
+                Toast.makeText(HelloMap.this, item.getTitle()+":"+item.getSnippet(), Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+        };
+
+        items = new ItemizedIconOverlay<OverlayItem>(this, new ArrayList<OverlayItem>(), markerGestureListener);
         OverlayItem fernhurst = new OverlayItem("Fernhurst", "Village in West Sussex", new GeoPoint(51.05, -0.72));
         OverlayItem blackdown = new OverlayItem("Blackdown", "highest point in West Sussex", new GeoPoint(51.0581, -0.6897));
         OverlayItem christchurch = new OverlayItem("Christchurch", "Home", new GeoPoint(50.73577, -1.778586));
